@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Responsive Mobile Menu</title>
+<link rel="stylesheet" href="css/responsivemobilemenu.css" type="text/css"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="js/responsivemobilemenu.js"></script>
+<script type="text/javascript">
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+db.transaction(function(tx){
+	  tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)',[],onSuccessCreateTable);
+	  msg = "Table Created";
+	  $("#status").append(msg);
+	  $("#status").fadeOut(600);
+	});
+</script>
+<script type="text/javascript">
+function AddData()
+{
+	var id = $("#myId").val();
+	var name = $("#myName").val();
+	//alert(id+ " "+ name);	
+	if(id=="" || name=="")
+		alert("Please Enter Proper Details");
+	else
+	{
+		db.transaction(function(tx){
+			tx.executeSql('INSERT INTO LOGS (id, log) VALUES (?,?)',[id,name],OnSuccess);
+		});		
+		ResetData();
+	}
+}
+function OnSuccess(tx,results)
+{
+	alert("insert Success");
+}
+function ResetData()
+{
+	$("#myId").val("");
+	$("#myName").val("");
+}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+</head>
+<body>
+        <div class="rmm">
+            <ul>
+                <li><a href='index.html'>Home</a></li>
+                <li><a href='#about-me'>About me</a></li>
+                <li><a href='data.html'>DataBase</a></li>
+                <li><a href='#blog'>Blog</a></li>
+                <li><a href='#links'>Links</a></li>
+                <li><a href='#sitemap'>Sitemap</a></li> 
+            </ul>
+        </div>
+        <div style="text-align:center;" align="center">
+        <p>Welcome to the first PhoneGap App</p>
+        </div>
+        <div id="entry" align="center">
+        <table id="My_table">
+        <tr>
+        	<td>Enter Id:
+            </td>
+            <td>
+            <input type="text" name="myId" id="myId" pattern="[0-9]{3}" required="required"/>	
+            </td>
+        </tr>
+	    <tr>
+    	    <td>Enter Name:
+            </td>
+            <td>
+            	<input type="text" id="myName"/>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right">
+            	<input type="button" value="Add" id="AddData" onClick="AddData()"/>
+            </td>
+            <td>
+            <input type="reset" value="Reset" onClick="ResetData()"/>
+            </td>
+        </tr>
+        </table>
+        </div>
+</body>
+</html>
