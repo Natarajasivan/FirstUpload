@@ -4,7 +4,7 @@
 <title>Responsive Mobile Menu</title>
 <link rel="stylesheet" href="css/responsivemobilemenu.css" type="text/css"/>
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="js/responsivemobilemenu.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 <script type="text/javascript">
@@ -19,8 +19,12 @@ db.transaction(function (tx) {
      msg = "<p><b>" + results.rows.item(i).id + "</b></p>";
      document.querySelector('#status').innerHTML +=  msg;
    }
- }, null);
+ }, OnError);
 });
+function OnError(tx, error)
+{
+	alert(error);
+}
 </script>
 </head>
 <body>
