@@ -7,13 +7,15 @@
 <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="js/responsivemobilemenu.js"></script>
 <script type="text/javascript">
+$(document).ready(function(e) {
 var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
 db.transaction(function(tx){
 	  tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)',[],onSuccessCreateTable);
 	  msg = "Table Created";
 	  $("#status").append(msg);
 	  $("#status").fadeOut(600);
-	});
+	});    
+});
 </script>
 <script type="text/javascript">
 function AddData()
